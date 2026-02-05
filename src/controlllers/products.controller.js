@@ -1,4 +1,4 @@
-import Product from "../models/product.models";
+import Product from "../models/product.models.js";
 import { throwHttpError } from "../utils/httpError";
 
 export const getAllProducts= async(req, res, next)=> {
@@ -18,7 +18,7 @@ export const addProduct = async(req, res, next)=>{
 
         const newProduct = await Product.create({title,price,stock});
 
-        res.status(201),json({status: "success", pyaload: newProduct});
+        res.status(201).json({status: "success", pyaload: newProduct});
     } catch (error) {
         next(error);
     }

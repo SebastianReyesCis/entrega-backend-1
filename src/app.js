@@ -3,7 +3,7 @@ import productsRouter from "./routes/product.router.js";
 import connectMongoDB from "./config/db.js";
 import dotenv from "dotenv"; 
 import __dirname from "../dirname.js";
-import { errorHandler, errorhandler } from "./middlewares/error.middlewares.js";
+import { errorHandler } from "./middlewares/error.middlewares.js";
 
 //inicio de variables de entorno7
 
