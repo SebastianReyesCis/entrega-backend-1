@@ -1,4 +1,4 @@
-import Product from "../models/product.models.js";
+import Product from "../models/product.model.js";
 import { throwHttpError } from "../utils/httpError.js";
 
 export const getAllProducts= async(req, res, next)=> {
@@ -14,9 +14,8 @@ export const getAllProducts= async(req, res, next)=> {
 
 export const addProduct = async(req, res, next)=>{
     try {
-        const{ title, price, stock} =req.body;
-
-        const newProduct = await Product.create({title,price,stock});
+        //lo ideal es verificar los datos con libreria "zod"
+        const newProduct = await Product.create(req.body);
 
         res.status(201).json({status: "success", pyaload: newProduct});
     } catch (error) {
@@ -42,7 +41,7 @@ export const deleteProductById = async (req, res,next)=> {
     try {
         const pid = req.params.pid;
 
-        const deleteProduct = await product.findByIdAndUpdate(pid);
+        const deleteProduct = await Product.findByIdAndUpdate(pid);
         if (!deleteProduct) throwHttpError ("producto no encontrado", 404);
 
         res.status(200).json({status: "success", payload: deleteProduct});

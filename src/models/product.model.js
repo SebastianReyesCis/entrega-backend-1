@@ -62,6 +62,6 @@ productSchema.index({category: 1});
 
 
 
-const Product = mongoose.model("product", productSchema);
+const Product = mongoose.model("Product", productSchema);
 
 export default Product;

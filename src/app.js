@@ -4,6 +4,7 @@ import connectMongoDB from "./config/db.js";
 import dotenv from "dotenv"; 
 import __dirname from "../dirname.js";
 import { errorHandler } from "./middlewares/error.middlewares.js";
+import cartsRouter from "./routes/carts.router.js";
 
 //inicio de variables de entorno7
 
@@ -20,6 +21,7 @@ connectMongoDB();
 //endpoint :)
 
 app.use("/api/products", productsRouter);
+app.use("/api/carts", cartsRouter);
 
 app.use(errorHandler);
 
