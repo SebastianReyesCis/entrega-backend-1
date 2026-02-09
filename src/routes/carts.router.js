@@ -15,4 +15,15 @@ cartRouter.post("/", async(req, res , next) => {
     }
 });
 
+cartsRouter.post("/:cid/product/:pid", async(req, res, next) =>{
+    try{
+        const{ cid, pid } = req.params;
+        const { quantity }  = req.body;
+
+        const updatedCart = await Cart.findByIdAndUpdate(cid, { $push: { products: { product: pid, quantity}} }, { new : true, runValidators});
+    } catch (error) {
+        next(error);
+    }
+})
+
 export default cartsRouter ;
