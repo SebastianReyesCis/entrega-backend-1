@@ -28,7 +28,7 @@ cartsRouter.post("/:cid/product/:pid", async(req, res, next) =>{
         // si existe incrementar la cantidad 
         //si no existe, agregar como nuevo 
 
-        const updatedCart = await Cart.findByIdAndUpdate(cid, { $push: { products: { product: pid, quantity}} }, { new : true, runValidators});
+        const updatedCart = await Cart.findByIdAndUpdate(cid, { $push: { products: { product: pid, quantity}} }, { new : true, runValidators: true});
         res.status(200).json({status:"success", payload: updatedCart});
     } catch (error) {
         next(error);
@@ -44,6 +44,30 @@ cartsRouter.get("/:cid", async(req, res, next ) => {
         res.status(200).json({ status: "success", payload: cart.products});
     } catch (error) {
         next (error);
+    }
+});
+
+cartsRouter.delete("/:cid/product/:pid", async (req, res, next) => {
+    try {
+        const { cid, pid } = req.params;
+
+        const updatedCart = await Cart.findByIdAndUpdate(
+            cid,
+            { $pull: { products: { product: pid } } },
+            { new: true }
+        );
+
+        if (!updatedCart) {
+            throwHttpError(" no encontrado", 404);
+        }
+
+        res.status(200).json({
+            status: "success",
+            payload: updatedCart
+        });
+
+    } catch (error) {
+        next(error);
     }
 });
 

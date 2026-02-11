@@ -4,7 +4,7 @@ import { throwHttpError } from "../utils/httpError.js";
 export const getAllProducts= async(req, res, next)=> {
     try{
         const { limit =15 , page = 1 } = req.query;
-        const productsData = await Product.paginate(  {}, {limit , page , lean: true  });
+        const productsData = await Product.paginate({}, {limit , page , lean: true  });
         const products = productsData.docs;
         delete productsData.docs;
 
