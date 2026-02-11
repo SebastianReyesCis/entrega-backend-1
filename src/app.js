@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 import __dirname from "../dirname.js";
 import { errorHandler } from "./middlewares/error.middlewares.js";
 import cartsRouter from "./routes/carts.router.js";
+import { engine } from "express-handlebars";
+import viewsRouter from "./routes/views.router.js";
 
 //inicio de variables de entorno7
 
@@ -18,10 +20,16 @@ const PORT = process.env.PORT || 8080 ;
 
 connectMongoDB();
 
+// hANDLEBARS CONFIG
+app.engine("handlebars",engine());
+app.set("view engine", "handlebars");
+app.set("views", __dirname + "/src/views");
+
 //endpoint :)
 
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
+app.use("/", viewsRouter);
 
 app.use(errorHandler);
 

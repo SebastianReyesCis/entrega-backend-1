@@ -3,11 +3,14 @@ import { throwHttpError } from "../utils/httpError.js";
 
 export const getAllProducts= async(req, res, next)=> {
     try{
-        const products = await Product.find().lean();
+        const { limit =15 , page = 1 } = req.query;
+        const productsData = await Product.paginate(  {}, {limit , page , lean: true  });
+        const products = productsData.docs;
+        delete productsData.docs;
 
-        res.status(200).json({status : "success", payload : products});
+        res.status(200).json({status : "success", payload : products, ...productsData });
     } catch (error){
-        next(erro);
+        next(error);
     }
     
 };

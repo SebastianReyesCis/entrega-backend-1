@@ -20,6 +20,14 @@ cartsRouter.post("/:cid/product/:pid", async(req, res, next) =>{
         const{ cid, pid } = req.params;
         const { quantity }  = req.body;
 
+        //verificar que el producto exista 
+
+        //verificar que el carrito exista 
+
+        //verificar si el producto existe en el carrito
+        // si existe incrementar la cantidad 
+        //si no existe, agregar como nuevo 
+
         const updatedCart = await Cart.findByIdAndUpdate(cid, { $push: { products: { product: pid, quantity}} }, { new : true, runValidators});
         res.status(200).json({status:"success", payload: updatedCart});
     } catch (error) {
